@@ -3,8 +3,7 @@ import './add.css';
 import axios from 'axios'
 import { toast } from 'react-toastify';
 
-const Add = () => {
-  const url = 'http://localhost:8080';
+const Add = ({url}) => {
   const categories = [
     'Salad', 'Rolls', 'Deserts', 'Sandwich', 'Cake', 'Pure Veg', 'Pasta', 'Noodles'
   ];
@@ -53,7 +52,7 @@ const Add = () => {
   }
 
   return (
-    <div className="add p-4 offset-2">
+    <div className="add p-4 mt-3">
       <form onSubmit={onSubmitHandle}>
         <fieldset className="add-img-upload ">
           <legend>Upload Image</legend>

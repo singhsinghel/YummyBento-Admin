@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import './list.css';
 import { toast } from 'react-toastify';
-const List = () => {
-  const url='http://localhost:8080'
+const List = ({url}) => {
+
   const[list,setList]=useState([]);
 
   //fetching list
@@ -46,7 +46,7 @@ const List = () => {
         {list.map((item,index)=>{
          return(
           <div key={index} className="list-table-format row  d-flex  align-items-center ">
-            <img className='col-2' src={`${url}/images/`+item.image} alt="" />
+            <img className='col-2' src={`${url}/images/`+item.image} alt=""  />
             <p className='col-2'>{item.name}</p>
             <p className='col-4'>{item.category}</p>
             <p className='col-2'>{item.price}</p>
