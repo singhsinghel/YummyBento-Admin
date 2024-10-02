@@ -1,4 +1,4 @@
-import React, {  useContext, useState } from 'react';
+import React, {  useState } from 'react';
 import './add.css';
 import axios from 'axios'
 import { toast } from 'react-toastify';
@@ -25,6 +25,7 @@ const Add = ({url}) => {
 
   const onSubmitHandle= async(event)=>{
     event.preventDefault();
+    //Formdata is used for uploading images
     const formData= new FormData();
     formData.append('name',data.name);
     formData.append('image',image);

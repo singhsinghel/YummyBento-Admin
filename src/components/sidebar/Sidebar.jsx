@@ -18,7 +18,7 @@ const Sidebar = () => {
           <p>Orders</p>
         </NavLink>
       </div>
-      
+
     </div>
   )
 }
