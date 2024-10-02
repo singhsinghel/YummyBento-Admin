@@ -3,7 +3,7 @@ import './sidebar.css'
 import { NavLink } from 'react-router-dom'
 const Sidebar = () => {
   return (
-    <div className='sidebar pt-2'>
+    <div className='sidebar pt-2 d-none d-md-inline'>
       <div className="sidebar-options d-flex flex-column gap-4 pt-4">
         <NavLink to='/add' className="sidebar-option">
             <i class='bx bx-plus-circle fs-3 '></i>
