@@ -1,0 +1,6 @@
+.label-img{
+    height: 4rem;
+    width: 4rem;    
+    background-color: rgba(188, 179, 179, 0.478) ;
+    border: 2px dashed rgba(49, 47, 47, 0.478);
+}
