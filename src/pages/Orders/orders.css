@@ -20,7 +20,7 @@
 }
 .order-item select{
     background-color: #ffe8e4;
-    border: 1px solid tomato;
+    border: 1px solid #ff6347;
     width: max(10vw,9rem);
 }
 @media (max-width:1000px) {
