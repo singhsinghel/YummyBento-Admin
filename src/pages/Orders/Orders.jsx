@@ -3,13 +3,19 @@ import {toast} from 'react-toastify'
 import './orders.css'
 import axios from 'axios'
 import { assets, url } from '../../assets/assets'
+import { useContext } from 'react'
+import { StoreContext } from '../../Context/Context'
 const Orders = () => {
   const [orders, setOrders]=useState([]);
+  const {token}=useContext(StoreContext)
   
   //fetching all orders
   const fetchOrders=async()=>{
-      let response=await axios.get(url+'/api/order/fetchorders');
-      console.log(orders)
+    if(!token){
+      toast.error("Unauthorized! Please login");
+      return;
+    }
+      let response=await axios.get(url+'/api/order/fetchorders',{},{headers:{token}});
       if(response.data.success){
          setOrders(response.data.data);
       }
