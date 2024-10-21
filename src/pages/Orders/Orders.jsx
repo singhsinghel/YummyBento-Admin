@@ -15,7 +15,7 @@ const Orders = () => {
       toast.error("Unauthorized! Please login");
       return;
     }
-      let response=await axios.get(url+'/api/order/fetchorders',{},{headers:{token}});
+      let response=await axios.get(url+'/api/order/fetchorders',{headers:{token}});
       if(response.data.success){
          setOrders(response.data.data);
       }
@@ -24,7 +24,7 @@ const Orders = () => {
   }
  //updating status
  const updateStatus=async(orderId,status)=>{
-   let response = await axios.post(url+'/api/order/changestatus',{orderId,status});
+   let response = await axios.post(url+'/api/order/changestatus',{orderId,status},{headers:{token}});
    if(response.data.success){
      fetchOrders()
      toast.success('Status Updated')
@@ -34,7 +34,7 @@ const Orders = () => {
  }
   useEffect(()=>{
     fetchOrders();
-  },[])
+  },[token])
   return (
     <div className='order add'>
       <h3>Order Page</h3>

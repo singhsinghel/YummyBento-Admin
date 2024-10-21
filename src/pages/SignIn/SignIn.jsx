@@ -4,6 +4,7 @@ import{useNavigate} from 'react-router-dom'
 import { toast } from 'react-toastify';
 import axios from 'axios'; // Don't forget axios import
 import { StoreContext } from '../../Context/Context'; // Ensure correct path
+import { url } from '../../assets/assets';
 
 const SignIn = () => {
   
@@ -12,7 +13,7 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
   const [emailBlured, setEmailBlured] = useState(false);
   const [passwordBlured, setPasswordBlured] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [loading,setloading]=useState(false);
   
   const { setToken } = useContext(StoreContext); // Ensure correct access to StoreContext
 
@@ -27,9 +28,10 @@ const SignIn = () => {
 
   const submit = async () => {
     if (validEmail(email) && validPassword(password)) {
-      setSubmitted(true);
+
+      setloading(true)
       try {
-        const response = await axios.post(`http://localhost:8080/api/admin/login`, {
+        const response = await axios.post(`${url}/api/admin/login`, {
           email,
           password,
         });
@@ -37,6 +39,7 @@ const SignIn = () => {
           toast.success(response.data.message);
           setToken(response.data.token);
           localStorage.setItem('token', response.data.token);
+          setloading(false);
           navigate('/list')
         } else {
           toast.error(response.data.message);
@@ -45,17 +48,17 @@ const SignIn = () => {
         toast.error('An error occurred during login');
       }
     } else {
+
       setEmailBlured(true);
       setPasswordBlured(true);
     }
   };
 
   return (
-    <div className="container w-100 mt-5">
+    <div className="signin-component  container w-100 mt-5">
       <div className="row d-flex justify-content-center">
         <div className="col-md-6">
           <div className="card px-5 py-5" id="form1">
-            {!submitted ? (
               <div className="form-data">
                 <div className="forms-inputs mb-4">
                   <span>Email or username</span>
@@ -89,20 +92,13 @@ const SignIn = () => {
 
                 <div className="mb-3">
                   <button onClick={submit} className="btn btn-dark w-100">
-                    Login
+                    {loading
+                    ?<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    :<span>Admin Login</span>
+                  }
                   </button>
                 </div>
               </div>
-            ) : (
-              <div className="success-data">
-                <div className="text-center d-flex flex-column">
-                  <i className="bx bxs-badge-check"></i>
-                  <span className="text-center fs-1">
-                    You have been logged in <br /> Successfully
-                  </span>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>

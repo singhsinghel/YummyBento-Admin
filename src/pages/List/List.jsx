@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import './list.css';
 import { toast } from 'react-toastify';
+import {StoreContext} from '../../Context/Context.jsx'
 const List = ({url}) => {
 
   const[list,setList]=useState([]);
+  const {token}=useContext(StoreContext)
 
   //fetching list
   const fetchList=async()=>{
-    const response= await axios.get(`${url}/api/food/list`);
+    const response= await axios.get(`${url}/api/food/list`,{},{headers:{token}});
     
     if(response.data.success){
        setList(response.data.data)

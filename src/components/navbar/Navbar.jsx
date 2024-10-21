@@ -3,13 +3,14 @@ import './navbar.css'
 import { assets } from '../../assets/assets.js'
 import { useContext } from 'react'
 import { StoreContext } from '../../Context/Context.jsx'
+import {toast} from 'react-toastify'
 const Navbar = () => {
-  const{setToken}=useContext(StoreContext)
+  const{setToken}=useContext(StoreContext);
+
   const adminLogout=()=>{
     localStorage.removeItem('token');
     setToken('');
     toast.success('logged out successfully');
-
   }
   return (
     <div className='navbar sticky-top' style={{backgroundColor:'#fcfcfc'}}>

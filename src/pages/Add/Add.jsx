@@ -1,9 +1,11 @@
-import React, {  useState } from 'react';
+import React, {  useContext, useState } from 'react';
 import './add.css';
 import axios from 'axios'
 import { toast } from 'react-toastify';
+import { StoreContext } from '../../Context/Context';
 
 const Add = ({url}) => {
+  const {token}=useContext(StoreContext)
   const categories = [
     'Salad', 'Rolls', 'Deserts', 'Sandwich', 'Cake', 'Pure Veg', 'Pasta', 'Noodles'
   ];
@@ -33,7 +35,7 @@ const Add = ({url}) => {
     formData.append('category',data.category);
     formData.append('description',data.description);
 
-    const response=await axios.post(`${url}/api/food/add`,formData);
+    const response=await axios.post(`${url}/api/food/add`,formData,{headers:{token}});
     if(response.data.success){
       toast.success(response.data.message)
       //reset the values

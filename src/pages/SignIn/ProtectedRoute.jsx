@@ -1,17 +1,19 @@
-import { Navigate } from 'react-router-dom';
-import { useContext } from 'react';
-import { StoreContext } from '../../Context/Context.jsx';
+import { useContext, useEffect } from 'react';
+import { StoreContext } from '../../Context/Context';
+import { useNavigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
   const { token } = useContext(StoreContext);
+  const navigate = useNavigate();
 
-  // If no token is found, redirect to the SignIn page
-  if (!token) {
-    return <Navigate to="/" replace />;
-    //The replace prop in <Navigate> ensures that when the user is redirected, the current page is replaced in the browser's history stack, instead of being pushed onto it. This is important because it prevents the user from using the back button to return to the protected route after they have been redirected to the login page.
-  }
+  useEffect(() => {
+    const savedToken = localStorage.getItem('token');
+    if (!token && !savedToken) {
+      navigate('/'); // Redirect to home if no token in context or localStorage
+    }
+  }, [token, navigate]);
 
-  // Otherwise, render the child components (protected components)
   return children;
 };
+
 export default ProtectedRoute;
